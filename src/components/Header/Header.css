@@ -19,10 +19,11 @@
   margin-left: auto;
   border: none;
   background: transparent;
-  cursor: pointer;
+  padding: 0;
   font-size: 20px;
   font-weight: 700;
   line-height: 24px;
+  cursor: pointer;
 }
 
 .header__user-container {
@@ -30,6 +31,7 @@
   align-items: center;
   gap: 12px;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .header__username {
@@ -43,4 +45,5 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  cursor: pointer;
 }
