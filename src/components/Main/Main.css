@@ -1,19 +1,19 @@
-.main {
-  padding-top: 40px;
+.cards {
+  margin-top: 40px;
 }
 
 .cards__text {
   margin: 40px 0 34px;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-weight: 700;
   font-size: 20px;
   line-height: 24px;
+  font-weight: 700;
 }
 
 .cards__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 10px;
+  gap: 20px;
   padding: 0;
   margin: 0;
   list-style: none;
