@@ -15,6 +15,8 @@ function App() {
     type: "",
     temp: { F: 999 },
     city: "",
+    condition: "",
+    isDay: true,
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -53,7 +55,7 @@ function App() {
         title="New garment"
         buttonText="Add garment"
         activeModal={activeModal}
-        handleCloseClick={closeActiveModal}
+        onClose={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">
           Name

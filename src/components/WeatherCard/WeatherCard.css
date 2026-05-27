@@ -6,6 +6,7 @@
   overflow: hidden;
   margin-top: 28px;
   cursor: pointer;
+  z-index: 1;
 }
 
 .weather-card__image {
@@ -13,6 +14,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  object-position: right center;
   cursor: pointer;
 }
 
@@ -26,7 +28,7 @@
   font-size: 36px;
   line-height: 40px;
   color: #ffffff;
-  z-index: 1;
+  z-index: 2;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

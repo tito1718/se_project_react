@@ -1,9 +1,25 @@
+import { useEffect } from "react";
+
 import "./ItemModal.css";
 
 function ItemModal({ activeModal, onClose, card }) {
+  useEffect(() => {
+    const handleEscClose = (evt) => {
+      if (evt.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [onClose]);
+
   return (
     <div
-      className={`modal ${activeModal === "preview" && "modal_opened"}`}
+      className={`modal ${activeModal === "preview" ? "modal_opened" : ""}`}
       onClick={onClose}
     >
       <div

@@ -122,15 +122,19 @@
 }
 
 .modal__label_type_radio[for="hot"]:hover {
-  color: #ff4d4d;
+  color: #ff5a36;
 }
 
 .modal__label_type_radio[for="warm"]:hover {
-  color: #ffb800;
+  color: #ffb703;
 }
 
 .modal__label_type_radio[for="cold"]:hover {
-  color: #5bc0ff;
+  color: #38bdf8;
+}
+
+.modal__label_type_radio[for="freezing"]:hover {
+  color: #7c3aed;
 }
 
 .modal__radio-input {

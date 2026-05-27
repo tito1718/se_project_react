@@ -20,7 +20,7 @@ function ModalWithForm({ children, buttonText, title, activeModal, onClose }) {
 
   return (
     <div
-      className={`modal ${activeModal === "add-garment" && "modal_opened"}`}
+      className={`modal ${activeModal === "add-garment" ? "modal_opened" : ""}`}
       onClick={onClose}
     >
       <div className="modal__content" onClick={(evt) => evt.stopPropagation()}>

@@ -2,6 +2,13 @@
   display: flex;
   align-items: center;
   padding-bottom: 28px;
+  position: relative;
+  z-index: 5;
+}
+
+.header__top {
+  display: flex;
+  align-items: center;
 }
 
 .header__logo {
@@ -10,16 +17,24 @@
 
 .header__date-and-location {
   margin: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 24px;
 }
 
-.header__add-clothes-btn {
+.header__menu {
+  display: flex;
+  align-items: center;
   margin-left: auto;
+}
+
+.header__add-clothes-btn {
+  order: 1;
   border: none;
   background: transparent;
   padding: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 24px;
@@ -27,6 +42,7 @@
 }
 
 .header__user-container {
+  order: 2;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -36,6 +52,7 @@
 
 .header__username {
   margin: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 24px;
@@ -45,5 +62,98 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  cursor: pointer;
+}
+
+.header__menu-btn,
+.header__close-btn {
+  display: none;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 768px) {
+  .header {
+    display: block;
+    position: relative;
+  }
+
+  .header__top {
+    justify-content: space-between;
+  }
+
+  .header__logo {
+    margin-right: 12px;
+  }
+
+  .header__date-and-location {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .header__menu-btn {
+    display: block;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  .header__menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    z-index: 20;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    width: 220px;
+    padding: 20px;
+
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  .header__menu_opened {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .header__close-btn {
+    display: block;
+    align-self: flex-end;
+
+    border: none;
+    background: transparent;
+
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .header__user-container {
+    order: 1;
+    margin-left: 0;
+  }
+
+  .header__add-clothes-btn {
+    order: 2;
+  }
+
+  .header__add-clothes-btn,
+  .header__username {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }

@@ -1,14 +1,12 @@
-import Main from "../components/Main/Main";
-
 export const getWeather = ({ latitude, longitude }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`,
   ).then((res) => {
     if (res.ok) {
       return res.json();
-    } else {
-      return Promise.reject(`Error: ${res.status}`);
     }
+
+    return Promise.reject(`Error: ${res.status}`);
   });
 };
 
@@ -17,8 +15,9 @@ export const filterWeatherData = (data) => {
   result.city = data.name;
   result.temp = { F: data.main.temp };
   result.type = getWeatherType(result.temp.F);
-  result.condition = data.weather[0].main.toLowerCase();
+  result.condition = getWeatherCondition(data.weather[0].main);
   result.isDay = isDay(data.sys, Date.now());
+
   return result;
 };
 
@@ -27,13 +26,31 @@ const isDay = ({ sunrise, sunset }, now) => {
 };
 
 const getWeatherType = (temperature) => {
-  if (temperature >= 86) {
+  if (temperature >= 80) {
     return "hot";
-  } else if (temperature >= 66) {
+  } else if (temperature >= 60) {
     return "warm";
-  } else if (temperature >= 36) {
+  } else if (temperature >= 30) {
     return "cold";
   } else {
     return "freezing";
+  }
+};
+
+const getWeatherCondition = (condition) => {
+  const weatherCondition = condition.toLowerCase();
+
+  if (weatherCondition === "clear") {
+    return "clear";
+  } else if (weatherCondition === "clouds") {
+    return "cloudy";
+  } else if (weatherCondition === "rain" || weatherCondition === "drizzle") {
+    return "rain";
+  } else if (weatherCondition === "snow") {
+    return "snow";
+  } else if (weatherCondition === "thunderstorm") {
+    return "storm";
+  } else {
+    return "fog";
   }
 };
