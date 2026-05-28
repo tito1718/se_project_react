@@ -3,7 +3,7 @@
   align-items: center;
   padding-bottom: 28px;
   position: relative;
-  z-index: 5;
+  z-index: 20;
 }
 
 .header__top {
@@ -39,6 +39,16 @@
   font-weight: 700;
   line-height: 24px;
   cursor: pointer;
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.header__add-clothes-btn:hover {
+  color: #1a9bef;
+  opacity: 0.8;
+  transform: translateY(-1px);
 }
 
 .header__user-container {
@@ -48,6 +58,14 @@
   gap: 12px;
   margin-left: 20px;
   cursor: pointer;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.header__user-container:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
 }
 
 .header__username {
@@ -62,6 +80,11 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+
+.header__user-container:hover .header__avatar {
+  transform: scale(1.08);
 }
 
 .header__menu-btn,
@@ -103,22 +126,17 @@
     top: 60px;
     right: 0;
     z-index: 20;
-
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-
     width: 220px;
     padding: 20px;
-
     border-radius: 12px;
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-
     transition:
       opacity 0.3s ease,
       transform 0.3s ease,
@@ -134,10 +152,8 @@
   .header__close-btn {
     display: block;
     align-self: flex-end;
-
     border: none;
     background: transparent;
-
     font-size: 24px;
     cursor: pointer;
   }

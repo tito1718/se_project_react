@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import "./ItemModal.css";
+import closeBtn from "../../assets/white-close-btn.png";
 
 function ItemModal({ activeModal, onClose, card }) {
   useEffect(() => {
@@ -26,8 +27,13 @@ function ItemModal({ activeModal, onClose, card }) {
         className="modal__content modal__content_type_image"
         onClick={(evt) => evt.stopPropagation()}
       >
-        <button onClick={onClose} type="button" className="modal__close">
-          CLOSE
+        <button
+          onClick={onClose}
+          type="button"
+          className="modal__close"
+          aria-label="Close modal"
+        >
+          <img src={closeBtn} alt="Close icon" className="modal__close-icon" />
         </button>
 
         <img src={card.link} alt={card.name} className="modal__image" />

@@ -174,4 +174,4 @@ export const coordinates = {
   longitude: -73.872819,
 };
 
-export const APIkey = "39ae93eae8e1a61bb0bf5c9bc7766ff0";
+export const apiKey = "39ae93eae8e1a61bb0bf5c9bc7766ff0";
