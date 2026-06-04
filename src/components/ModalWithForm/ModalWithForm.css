@@ -45,6 +45,9 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .modal__close-icon {
@@ -55,6 +58,7 @@
 
 .modal__close:hover {
   opacity: 0.6;
+  transform: rotate(90deg) scale(1.15);
 }
 
 .modal__form {

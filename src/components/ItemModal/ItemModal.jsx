@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./ItemModal.css";
 import closeBtn from "../../assets/white-close-btn.png";
 
-function ItemModal({ activeModal, onClose, card }) {
+function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
   useEffect(() => {
     const handleEscClose = (evt) => {
       if (evt.key === "Escape") {
@@ -28,19 +28,37 @@ function ItemModal({ activeModal, onClose, card }) {
         onClick={(evt) => evt.stopPropagation()}
       >
         <button
-          onClick={onClose}
           type="button"
           className="modal__close"
+          onClick={onClose}
           aria-label="Close modal"
         >
           <img src={closeBtn} alt="Close icon" className="modal__close-icon" />
         </button>
 
-        <img src={card.link} alt={card.name} className="modal__image" />
-
+        <img src={card.imageUrl} alt={card.name} className="modal__image" />
         <div className="modal__footer">
-          <h2 className="modal__caption">{card.name}</h2>
-          <p className="modal__weather">Weather: {card.weather}</p>
+          <div className="modal__caption-container">
+            <h2 className="modal__caption">{card.name}</h2>
+
+            <button
+              type="button"
+              className="modal__delete-btn"
+              onClick={() => onDeleteClick(card)}
+            >
+              Delete item
+            </button>
+          </div>
+
+          <p className="modal__weather">
+            Weather:
+            <span
+              className={`modal__weather-value modal__weather_type_${card.weather}`}
+            >
+              {" "}
+              {card.weather}
+            </span>
+          </p>
         </div>
       </div>
     </div>

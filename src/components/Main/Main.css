@@ -6,8 +6,8 @@
   margin: 40px 0 34px;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
-  line-height: 24px;
   font-weight: 700;
+  line-height: 24px;
 }
 
 .cards__list {
@@ -17,4 +17,22 @@
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .cards__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .cards__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .cards__list {
+    grid-template-columns: 1fr;
+  }
 }

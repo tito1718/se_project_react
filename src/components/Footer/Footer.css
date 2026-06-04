@@ -15,3 +15,10 @@
 .footer__year {
   margin: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    margin-top: 48px;
+    padding-bottom: 20px;
+  }
+}

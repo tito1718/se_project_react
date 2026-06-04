@@ -27,6 +27,14 @@
   font-weight: 700;
   cursor: pointer;
   z-index: 2;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modal__close:hover {
+  opacity: 0.6;
+  transform: rotate(90deg) scale(1.15);
 }
 
 .modal__footer {
@@ -34,18 +42,66 @@
   background-color: #fff;
 }
 
+.modal__caption-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
 .modal__caption {
-  margin: 0 0 12px;
+  margin: 0;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
   line-height: 24px;
   font-weight: 700;
 }
 
+.modal__delete-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #ff4d00;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  cursor: pointer;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.modal__delete-btn:hover {
+  opacity: 0.6;
+  transform: translateY(-1px);
+}
+
 .modal__weather {
-  margin: 0;
+  color: #000;
+  margin: 12px 0 0;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
   line-height: 24px;
   font-weight: 700;
+}
+
+.modal__weather-value {
+  display: inline;
+}
+
+.modal__weather_type_hot {
+  color: #ff5a36;
+}
+
+.modal__weather_type_warm {
+  color: #ffb703;
+}
+
+.modal__weather_type_cold {
+  color: #38bdf8;
+}
+
+.modal__weather_type_freezing {
+  color: #7c3aed;
 }

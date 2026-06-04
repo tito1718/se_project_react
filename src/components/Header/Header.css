@@ -13,6 +13,14 @@
 
 .header__logo {
   margin-right: 24px;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.header__logo:hover {
+  opacity: 0.75;
+  transform: scale(1.04);
 }
 
 .header__date-and-location {
@@ -27,6 +35,7 @@
   display: flex;
   align-items: center;
   margin-left: auto;
+  gap: 20px;
 }
 
 .header__add-clothes-btn {
@@ -46,7 +55,6 @@
 }
 
 .header__add-clothes-btn:hover {
-  color: #1a9bef;
   opacity: 0.8;
   transform: translateY(-1px);
 }
@@ -80,16 +88,44 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  transition: transform 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .header__user-container:hover .header__avatar {
   transform: scale(1.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+.header__profile-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Menu & Close Buttons */
 
 .header__menu-btn,
 .header__close-btn {
   display: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.header__menu-btn:hover {
+  opacity: 0.6;
+  transform: scale(1.15);
+}
+
+.header__close-btn:hover {
+  opacity: 0.6;
+  transform: rotate(90deg) scale(1.15);
 }
 
 /* MOBILE */
@@ -115,10 +151,7 @@
 
   .header__menu-btn {
     display: block;
-    border: none;
-    background: transparent;
     font-size: 28px;
-    cursor: pointer;
   }
 
   .header__menu {
@@ -140,22 +173,21 @@
     transition:
       opacity 0.3s ease,
       transform 0.3s ease,
-      visibility 0.3s ease;
+      visibility 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .header__menu_opened {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   }
 
   .header__close-btn {
     display: block;
     align-self: flex-end;
-    border: none;
-    background: transparent;
     font-size: 24px;
-    cursor: pointer;
   }
 
   .header__user-container {

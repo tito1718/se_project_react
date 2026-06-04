@@ -7,15 +7,27 @@
   margin-top: 28px;
   cursor: pointer;
   z-index: 1;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .weather-card__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
   object-position: right center;
-  cursor: pointer;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.weather-card:hover .weather-card__image {
+  transform: scale(1.02);
 }
 
 .weather-card__temp {
@@ -29,7 +41,11 @@
   line-height: 40px;
   color: #ffffff;
   z-index: 2;
-  cursor: pointer;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: opacity 0.25s ease;
+}
+
+.weather-card:hover .weather-card__temp {
+  opacity: 0.95;
 }
