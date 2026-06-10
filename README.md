@@ -108,3 +108,7 @@ Cesar Chirino
 ## Deployment
 
 GitHub repository: https://github.com/tito1718/se_project_react
+
+## Project Pitch Video
+
+Check out [this video](https://www.loom.com/share/2d8f3c83c3ab4bd996c3bb1671e938a0), where I describe my project and some challenges I faced while building it.

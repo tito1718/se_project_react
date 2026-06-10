@@ -11,6 +11,7 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
+  isValid = true,
 }) {
   useEffect(() => {
     const handleEscClose = (evt) => {
@@ -43,10 +44,21 @@ function ModalWithForm({
           <img src={closeBtn} alt="Close" className="modal__close-icon" />
         </button>
 
-        <form className="modal__form" name={name} onSubmit={onSubmit}>
-          {" "}
+        <form
+          className="modal__form"
+          name={name}
+          onSubmit={onSubmit}
+          noValidate
+        >
           {children}
-          <button type="submit" className="modal__submit">
+
+          <button
+            type="submit"
+            className={`modal__submit ${
+              !isValid ? "modal__submit_disabled" : ""
+            }`}
+            disabled={!isValid}
+          >
             {buttonText}
           </button>
         </form>

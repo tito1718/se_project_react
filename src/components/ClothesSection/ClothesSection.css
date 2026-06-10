@@ -47,6 +47,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .clothes-section__add-btn {
+    margin-left: auto;
+  }
+
   .clothes-section__items {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }

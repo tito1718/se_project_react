@@ -2,7 +2,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
 
 function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
-  const { values, handleChange, resetForm } = useForm({
+  const { values, errors, isValid, handleChange, resetForm } = useForm({
     name: "",
     imageUrl: "",
     weather: "",
@@ -10,6 +10,11 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    if (!isValid) {
+      return;
+    }
+
     onAddItem(values, resetForm);
   };
 
@@ -21,27 +26,31 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       isOpen={isOpen}
       onClose={onCloseModal}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label htmlFor="name" className="modal__label">
         Name
         <input
           type="text"
-          className="modal__input"
+          className={`modal__input ${errors.name ? "modal__input_type_error" : ""}`}
           id="name"
           name="name"
           placeholder="Name"
           value={values.name}
           onChange={handleChange}
           autoComplete="off"
+          minLength="2"
+          maxLength="30"
           required
         />
+        <span className="modal__error">{errors.name}</span>
       </label>
 
       <label htmlFor="imageUrl" className="modal__label">
         Image
         <input
           type="url"
-          className="modal__input"
+          className={`modal__input ${errors.imageUrl ? "modal__input_type_error" : ""}`}
           id="imageUrl"
           name="imageUrl"
           placeholder="Image URL"
@@ -50,6 +59,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
           autoComplete="url"
           required
         />
+        <span className="modal__error">{errors.imageUrl}</span>
       </label>
 
       <fieldset className="modal__radio-buttons">

@@ -10,6 +10,7 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
+  object-fit: cover;
   transition:
     opacity 0.25s ease,
     transform 0.25s ease;
@@ -28,4 +29,24 @@
 .sidebar:hover .sidebar__avatar {
   opacity: 0.85;
   transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 24px;
+    min-width: unset;
+  }
+
+  .sidebar__avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .sidebar__username {
+    top: 0;
+    font-size: 28px;
+    line-height: 32px;
+  }
 }

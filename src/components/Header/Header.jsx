@@ -30,9 +30,11 @@ function Header({ handleAddClick, weatherData }) {
         <button
           type="button"
           className="header__menu-btn"
-          onClick={toggleMobileMenu}
+          onClick={() => setIsMobileMenuOpened(true)}
+          aria-label="Open menu"
         >
-          ☰
+          <span></span>
+          <span></span>
         </button>
       </div>
 
@@ -44,7 +46,8 @@ function Header({ handleAddClick, weatherData }) {
         <button
           type="button"
           className="header__close-btn"
-          onClick={toggleMobileMenu}
+          onClick={() => setIsMobileMenuOpened(false)}
+          aria-label="Close menu"
         >
           ✕
         </button>
@@ -63,7 +66,10 @@ function Header({ handleAddClick, weatherData }) {
         </Link>
 
         <button
-          onClick={handleAddClick}
+          onClick={() => {
+            handleAddClick();
+            setIsMobileMenuOpened(false);
+          }}
           type="button"
           className="header__add-clothes-btn"
         >
