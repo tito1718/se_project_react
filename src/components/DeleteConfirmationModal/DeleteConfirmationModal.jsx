@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import "./DeleteConfirmationModal.css";
 import closeBtn from "../../assets/close-btn.png";
 
