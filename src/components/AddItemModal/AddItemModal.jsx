@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
 
@@ -7,6 +8,12 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
     imageUrl: "",
     weather: "",
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen, resetForm]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

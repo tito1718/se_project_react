@@ -4,6 +4,10 @@ import closeBtn from "../../assets/close-btn.png";
 
 function DeleteConfirmationModal({ isOpen, onClose, onConfirm }) {
   useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
     const handleEscClose = (evt) => {
       if (evt.key === "Escape") {
         onClose();
@@ -15,7 +19,7 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm }) {
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`} onClick={onClose}>

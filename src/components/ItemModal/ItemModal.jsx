@@ -5,6 +5,10 @@ import closeBtn from "../../assets/white-close-btn.png";
 
 function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
   useEffect(() => {
+    if (activeModal !== "preview") {
+      return;
+    }
+
     const handleEscClose = (evt) => {
       if (evt.key === "Escape") {
         onClose();
@@ -16,7 +20,7 @@ function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, [onClose]);
+  }, [activeModal, onClose]);
 
   return (
     <div
