@@ -50,6 +50,24 @@ function App() {
     setCardToDelete(null);
   };
 
+  useEffect(() => {
+    if (!activeModal) {
+      return;
+    }
+
+    const handleEscClose = (evt) => {
+      if (evt.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
   const openConfirmationModal = (card) => {
     setCardToDelete(card);
     setActiveModal("delete-confirmation");

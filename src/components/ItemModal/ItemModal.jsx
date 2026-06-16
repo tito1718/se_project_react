@@ -1,27 +1,7 @@
-import { useEffect } from "react";
-
 import "./ItemModal.css";
 import closeBtn from "../../assets/white-close-btn.png";
 
 function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
-  useEffect(() => {
-    if (activeModal !== "preview") {
-      return;
-    }
-
-    const handleEscClose = (evt) => {
-      if (evt.key === "Escape") {
-        onClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscClose);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal, onClose]);
-
   return (
     <div
       className={`modal ${activeModal === "preview" ? "modal_opened" : ""}`}
@@ -41,6 +21,7 @@ function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
         </button>
 
         <img src={card.imageUrl} alt={card.name} className="modal__image" />
+
         <div className="modal__footer">
           <div className="modal__caption-container">
             <h2 className="modal__caption">{card.name}</h2>
