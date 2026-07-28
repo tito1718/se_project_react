@@ -2,7 +2,7 @@
   position: relative;
   max-width: 670px;
   width: 100%;
-  padding: 60px 151px;
+  padding: 60px 95px;
   box-sizing: border-box;
   border-radius: 20px;
   background-color: #ffffff;
@@ -30,13 +30,13 @@
 }
 
 .delete-modal__close-icon {
+  display: block;
   width: 20px;
   height: 20px;
-  display: block;
 }
 
 .delete-modal__text {
-  margin: 0 0 40px;
+  margin: 0 0 32px;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
@@ -45,7 +45,7 @@
 
 .delete-modal__confirm-btn {
   display: block;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   border: none;
   background: transparent;
   padding: 0;
@@ -90,6 +90,6 @@
 @media screen and (max-width: 768px) {
   .delete-modal {
     max-width: 343px;
-    padding: 60px 32px;
+    padding: 60px 24px;
   }
 }
