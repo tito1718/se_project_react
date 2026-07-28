@@ -49,3 +49,25 @@ export const updateUser = ({ name, avatar }) => {
     }),
   }).then(checkResponse);
 };
+
+export const addCardLike = (id) => {
+  const token = getToken();
+
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+};
+
+export const removeCardLike = (id) => {
+  const token = getToken();
+
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+};

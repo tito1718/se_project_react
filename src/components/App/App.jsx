@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { getItems, addItem, deleteItem, updateUser } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  updateUser,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import { signup, signin, checkToken } from "../../utils/auth";
 import { setToken, getToken, removeToken } from "../../utils/token";
 import { Routes, Route } from "react-router-dom";
@@ -130,6 +137,18 @@ function App() {
     });
   };
 
+  const handleCardLike = ({ _id, isLiked }) => {
+    const likeAction = isLiked ? removeCardLike : addCardLike;
+
+    likeAction(_id)
+      .then((updatedCard) => {
+        setClothingItems((items) =>
+          items.map((item) => (item._id === _id ? updatedCard : item)),
+        );
+      })
+      .catch(console.error);
+  };
+
   const handleLogout = () => {
     removeToken();
     setCurrentUser({});
@@ -245,6 +264,8 @@ function App() {
                     weatherData={weatherData}
                     clothingItems={clothingItems}
                     handleCardClick={handleCardClick}
+                    handleCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
