@@ -277,9 +277,11 @@ function App() {
                     <Profile
                       clothingItems={clothingItems}
                       handleCardClick={handleCardClick}
+                      handleCardLike={handleCardLike}
                       handleAddClick={handleAddClick}
                       handleEditProfileClick={handleEditProfileClick}
                       handleSignOut={handleLogout}
+                      isLoggedIn={isLoggedIn}
                     />
                   </ProtectedRoute>
                 }

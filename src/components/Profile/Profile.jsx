@@ -5,9 +5,11 @@ import ClothesSection from "../ClothesSection/ClothesSection";
 function Profile({
   clothingItems,
   handleCardClick,
+  handleCardLike,
   handleAddClick,
   handleEditProfileClick,
   handleSignOut,
+  isLoggedIn,
 }) {
   return (
     <main className="profile">
@@ -15,10 +17,13 @@ function Profile({
         handleEditProfileClick={handleEditProfileClick}
         handleSignOut={handleSignOut}
       />
+
       <ClothesSection
         clothingItems={clothingItems}
         handleCardClick={handleCardClick}
+        handleCardLike={handleCardLike}
         handleAddClick={handleAddClick}
+        isLoggedIn={isLoggedIn}
       />
     </main>
   );
