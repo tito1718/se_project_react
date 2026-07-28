@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  isLoggedIn,
+  handleRegisterClick,
+  handleLoginClick,
+}) {
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpened(!isMobileMenuOpened);
-  };
+  const currentUser = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -54,27 +58,56 @@ function Header({ handleAddClick, weatherData }) {
 
         <ToggleSwitch />
 
-        <Link to="/profile" className="header__profile-link">
-          <div className="header__user-container">
-            <p className="header__username">Terrence Tegegne</p>
-            <img
-              src={avatar}
-              alt="Terrence Tegegne"
-              className="header__avatar"
-            />
-          </div>
-        </Link>
+        {isLoggedIn ? (
+          <>
+            <Link to="/profile" className="header__profile-link">
+              <div className="header__user-container">
+                <p className="header__username">{currentUser.name}</p>
 
-        <button
-          onClick={() => {
-            handleAddClick();
-            setIsMobileMenuOpened(false);
-          }}
-          type="button"
-          className="header__add-clothes-btn"
-        >
-          + Add clothes
-        </button>
+                {currentUser.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="header__avatar"
+                  />
+                ) : (
+                  <div className="header__avatar-placeholder">
+                    {currentUser.name?.charAt(0).toUpperCase()}
+                  </div>
+                )}
+              </div>
+            </Link>
+
+            <button
+              onClick={() => {
+                handleAddClick();
+                setIsMobileMenuOpened(false);
+              }}
+              type="button"
+              className="header__add-clothes-btn"
+            >
+              + Add clothes
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              className="header__auth-btn"
+              onClick={handleRegisterClick}
+            >
+              Sign Up
+            </button>
+
+            <button
+              type="button"
+              className="header__auth-btn"
+              onClick={handleLoginClick}
+            >
+              Log In
+            </button>
+          </>
+        )}
       </div>
     </header>
   );

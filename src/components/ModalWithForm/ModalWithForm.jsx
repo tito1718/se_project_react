@@ -10,6 +10,8 @@ function ModalWithForm({
   onClose,
   onSubmit,
   isValid = true,
+  alternateButtonText,
+  onAlternateButtonClick,
 }) {
   return (
     <div
@@ -45,6 +47,16 @@ function ModalWithForm({
           >
             {buttonText}
           </button>
+
+          {alternateButtonText && (
+            <button
+              type="button"
+              className="modal__alternate-button"
+              onClick={onAlternateButtonClick}
+            >
+              {alternateButtonText}
+            </button>
+          )}
         </form>
       </div>
     </div>
