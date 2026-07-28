@@ -1,3 +1,5 @@
+import { getToken } from "./token";
+
 const baseUrl = "http://localhost:3001";
 
 export const checkResponse = (res) => {
@@ -29,5 +31,21 @@ export const addItem = ({ name, imageUrl, weather }) => {
 export const deleteItem = (id) => {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
+  }).then(checkResponse);
+};
+
+export const updateUser = ({ name, avatar }) => {
+  const token = getToken();
+
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name,
+      avatar,
+    }),
   }).then(checkResponse);
 };

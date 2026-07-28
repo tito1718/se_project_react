@@ -27,5 +27,12 @@ export function useForm(inputValues) {
     setIsValid(false);
   };
 
-  return { values, errors, isValid, handleChange, resetForm };
+  return {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+    setValues,
+  };
 }

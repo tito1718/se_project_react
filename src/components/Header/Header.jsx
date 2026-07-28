@@ -60,7 +60,11 @@ function Header({
 
         {isLoggedIn ? (
           <>
-            <Link to="/profile" className="header__profile-link">
+            <Link
+              to="/profile"
+              className="header__profile-link"
+              onClick={() => setIsMobileMenuOpened(false)}
+            >
               <div className="header__user-container">
                 <p className="header__username">{currentUser.name}</p>
 

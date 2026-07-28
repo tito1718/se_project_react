@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import { getItems, addItem, deleteItem, updateUser } from "../../utils/api";
 import { signup, signin, checkToken } from "../../utils/auth";
 import { setToken, getToken, removeToken } from "../../utils/token";
 import { Routes, Route } from "react-router-dom";
@@ -19,6 +19,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
@@ -60,6 +61,10 @@ function App() {
 
   const handleLoginClick = () => {
     setActiveModal("login");
+  };
+
+  const handleEditProfileClick = () => {
+    setActiveModal("edit-profile");
   };
 
   const closeActiveModal = () => {
@@ -116,6 +121,13 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  const handleUpdateUser = ({ name, avatar }) => {
+    return updateUser({ name, avatar }).then((updatedUser) => {
+      setCurrentUser(updatedUser);
+      closeActiveModal();
+    });
   };
 
   const handleLogout = () => {
@@ -245,6 +257,8 @@ function App() {
                       clothingItems={clothingItems}
                       handleCardClick={handleCardClick}
                       handleAddClick={handleAddClick}
+                      handleEditProfileClick={handleEditProfileClick}
+                      handleSignOut={handleLogout}
                     />
                   </ProtectedRoute>
                 }
@@ -272,6 +286,12 @@ function App() {
             onLogin={handleLogin}
             onCloseModal={closeActiveModal}
             onRegisterClick={handleRegisterClick}
+          />
+
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile"}
+            onClose={closeActiveModal}
+            onUpdateUser={handleUpdateUser}
           />
 
           <ItemModal
