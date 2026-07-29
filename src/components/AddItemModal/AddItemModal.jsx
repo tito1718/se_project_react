@@ -2,7 +2,7 @@ import { useForm } from "../../hooks/useForm";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
+function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
   const { values, errors, isValid, handleChange, resetForm } = useForm({
     name: "",
     imageUrl: "",
@@ -28,12 +28,15 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       onClose={onCloseModal}
       onSubmit={handleSubmit}
       isValid={isValid}
+      isLoading={isLoading}
     >
       <label htmlFor="name" className="modal__label">
         Name
         <input
           type="text"
-          className={`modal__input ${errors.name ? "modal__input_type_error" : ""}`}
+          className={`modal__input ${
+            errors.name ? "modal__input_type_error" : ""
+          }`}
           id="name"
           name="name"
           placeholder="Name"
@@ -51,7 +54,9 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         Image
         <input
           type="url"
-          className={`modal__input ${errors.imageUrl ? "modal__input_type_error" : ""}`}
+          className={`modal__input ${
+            errors.imageUrl ? "modal__input_type_error" : ""
+          }`}
           id="imageUrl"
           name="imageUrl"
           placeholder="Image URL"

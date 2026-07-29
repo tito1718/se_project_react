@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import {
   getItems,
   addItem,
@@ -9,13 +11,11 @@ import {
 } from "../../utils/api";
 import { signup, signin, checkToken } from "../../utils/auth";
 import { setToken, getToken, removeToken } from "../../utils/token";
-import { Routes, Route } from "react-router-dom";
-
-import "./App.css";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { apiKey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
+
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -29,10 +29,15 @@ import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmati
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
+import "./App.css";
+
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
-    temperature: { F: 999, C: 999 },
+    temperature: {
+      F: 999,
+      C: 999,
+    },
     city: "",
     condition: "",
     isDay: true,
@@ -46,20 +51,24 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [registrationError, setRegistrationError] = useState("");
   const [loginError, setLoginError] = useState("");
+
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isAddingItem, setIsAddingItem] = useState(false);
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((currentUnit) =>
+      currentUnit === "F" ? "C" : "F",
+    );
   };
 
   const handleCardClick = (card) => {
-    setActiveModal("preview");
     setSelectedCard(card);
+    setActiveModal("preview");
   };
 
   const handleAddClick = () => {
@@ -89,30 +98,22 @@ function App() {
     setLoginError("");
   };
 
-  useEffect(() => {
-    if (!activeModal) {
-      return;
-    }
-
-    const handleEscClose = (evt) => {
-      if (evt.key === "Escape") {
-        closeActiveModal();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscClose);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal]);
-
   const handleRegistration = ({ name, avatar, email, password }, resetForm) => {
     setRegistrationError("");
     setIsRegistering(true);
 
-    signup({ name, avatar, email, password })
-      .then(() => signin({ email, password }))
+    signup({
+      name,
+      avatar,
+      email,
+      password,
+    })
+      .then(() =>
+        signin({
+          email,
+          password,
+        }),
+      )
       .then(({ token }) => {
         setToken(token);
         return checkToken(token);
@@ -141,7 +142,10 @@ function App() {
     setLoginError("");
     setIsLoggingIn(true);
 
-    signin({ email, password })
+    signin({
+      email,
+      password,
+    })
       .then(({ token }) => {
         setToken(token);
         return checkToken(token);
@@ -166,11 +170,30 @@ function App() {
       });
   };
 
+  const handleLogout = () => {
+    removeToken();
+    setCurrentUser({});
+    setIsLoggedIn(false);
+  };
+
   const handleUpdateUser = ({ name, avatar }) => {
-    return updateUser({ name, avatar }).then((updatedUser) => {
-      setCurrentUser(updatedUser);
-      closeActiveModal();
-    });
+    setIsUpdatingProfile(true);
+
+    return updateUser({
+      name,
+      avatar,
+    })
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      })
+      .finally(() => {
+        setIsUpdatingProfile(false);
+      });
   };
 
   const handleCardLike = ({ _id, isLiked }) => {
@@ -182,13 +205,9 @@ function App() {
           items.map((item) => (item._id === _id ? updatedCard : item)),
         );
       })
-      .catch(console.error);
-  };
-
-  const handleLogout = () => {
-    removeToken();
-    setCurrentUser({});
-    setIsLoggedIn(false);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const openConfirmationModal = (card) => {
@@ -197,6 +216,10 @@ function App() {
   };
 
   const handleCardDelete = () => {
+    if (!cardToDelete) {
+      return;
+    }
+
     deleteItem(cardToDelete._id)
       .then(() => {
         setClothingItems((items) =>
@@ -205,10 +228,14 @@ function App() {
 
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleAddItemSubmit = (item, resetForm) => {
+    setIsAddingItem(true);
+
     addItem({
       name: item.name,
       imageUrl: item.imageUrl,
@@ -219,8 +246,31 @@ function App() {
         resetForm();
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsAddingItem(false);
+      });
   };
+
+  useEffect(() => {
+    if (!activeModal) {
+      return undefined;
+    }
+
+    const handleEscClose = (evt) => {
+      if (evt.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -240,10 +290,12 @@ function App() {
             const filteredData = filterWeatherData(data);
             setWeatherData(filteredData);
           })
-          .catch(console.error);
+          .catch((err) => {
+            console.error(err);
+          });
       },
-      (error) => {
-        console.error("Error getting geolocation:", error);
+      (err) => {
+        console.error("Error getting geolocation:", err);
       },
     );
   }, []);
@@ -280,7 +332,10 @@ function App() {
 
   return (
     <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+      value={{
+        currentTemperatureUnit,
+        handleToggleSwitchChange,
+      }}
     >
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
@@ -292,6 +347,7 @@ function App() {
               handleRegisterClick={handleRegisterClick}
               handleLoginClick={handleLoginClick}
             />
+
             <Routes>
               <Route
                 path="/"
@@ -331,6 +387,7 @@ function App() {
             isOpen={activeModal === "add-garment"}
             onAddItem={handleAddItemSubmit}
             onCloseModal={closeActiveModal}
+            isLoading={isAddingItem}
           />
 
           <RegisterModal
@@ -357,6 +414,7 @@ function App() {
             isOpen={activeModal === "edit-profile"}
             onClose={closeActiveModal}
             onUpdateUser={handleUpdateUser}
+            isLoading={isUpdatingProfile}
           />
 
           <ItemModal
