@@ -47,6 +47,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
@@ -65,11 +67,13 @@ function App() {
 
   const handleRegisterClick = () => {
     setRegistrationError("");
+    setLoginError("");
     setActiveModal("register");
   };
 
   const handleLoginClick = () => {
     setRegistrationError("");
+    setLoginError("");
     setActiveModal("login");
   };
 
@@ -81,6 +85,7 @@ function App() {
     setActiveModal("");
     setCardToDelete(null);
     setRegistrationError("");
+    setLoginError("");
   };
 
   useEffect(() => {
@@ -127,7 +132,10 @@ function App() {
       });
   };
 
-  const handleLogin = ({ email, password }) => {
+  const handleLogin = ({ email, password }, resetForm) => {
+    setLoginError("");
+    setIsLoggingIn(true);
+
     signin({ email, password })
       .then(({ token }) => {
         setToken(token);
@@ -136,10 +144,20 @@ function App() {
       .then((userData) => {
         setCurrentUser(userData);
         setIsLoggedIn(true);
+        resetForm();
         closeActiveModal();
       })
       .catch((err) => {
         console.error(err);
+
+        if (err === "Error: 401") {
+          setLoginError("Incorrect email or password.");
+        } else {
+          setLoginError("Something went wrong. Please try again.");
+        }
+      })
+      .finally(() => {
+        setIsLoggingIn(false);
       });
   };
 
@@ -324,6 +342,9 @@ function App() {
             onLogin={handleLogin}
             onCloseModal={closeActiveModal}
             onRegisterClick={handleRegisterClick}
+            serverError={loginError}
+            onClearError={() => setLoginError("")}
+            isLoading={isLoggingIn}
           />
 
           <EditProfileModal

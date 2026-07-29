@@ -1,12 +1,27 @@
 import { useForm } from "../../hooks/useForm";
-
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function LoginModal({ isOpen, onLogin, onCloseModal, onRegisterClick }) {
+function LoginModal({
+  isOpen,
+  onLogin,
+  onCloseModal,
+  onRegisterClick,
+  serverError,
+  onClearError,
+  isLoading,
+}) {
   const { values, errors, isValid, handleChange, resetForm } = useForm({
     email: "",
     password: "",
   });
+
+  const handleInputChange = (evt) => {
+    handleChange(evt);
+
+    if (serverError) {
+      onClearError();
+    }
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -21,12 +36,13 @@ function LoginModal({ isOpen, onLogin, onCloseModal, onRegisterClick }) {
   return (
     <ModalWithForm
       title="Log in"
-      buttonText="Log in"
+      buttonText={isLoading ? "Logging in..." : "Log in"}
       name="login"
       isOpen={isOpen}
       onClose={onCloseModal}
       onSubmit={handleSubmit}
       isValid={isValid}
+      isLoading={isLoading}
       alternateButtonText="or Sign up"
       onAlternateButtonClick={onRegisterClick}
     >
@@ -41,7 +57,7 @@ function LoginModal({ isOpen, onLogin, onCloseModal, onRegisterClick }) {
           name="email"
           placeholder="Email"
           value={values.email}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="email"
           required
         />
@@ -59,13 +75,19 @@ function LoginModal({ isOpen, onLogin, onCloseModal, onRegisterClick }) {
           name="password"
           placeholder="Password"
           value={values.password}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="current-password"
           minLength="8"
           required
         />
         <span className="modal__error">{errors.password}</span>
       </label>
+
+      {serverError && (
+        <p className="modal__server-error" role="alert">
+          {serverError}
+        </p>
+      )}
     </ModalWithForm>
   );
 }
