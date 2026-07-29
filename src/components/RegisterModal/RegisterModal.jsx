@@ -1,14 +1,28 @@
 import { useForm } from "../../hooks/useForm";
-
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function RegisterModal({ isOpen, onRegister, onCloseModal, onLoginClick }) {
+function RegisterModal({
+  isOpen,
+  onRegister,
+  onCloseModal,
+  onLoginClick,
+  serverError,
+  onClearError,
+}) {
   const { values, errors, isValid, handleChange, resetForm } = useForm({
     email: "",
     password: "",
     name: "",
     avatar: "",
   });
+
+  const handleInputChange = (evt) => {
+    handleChange(evt);
+
+    if (serverError) {
+      onClearError();
+    }
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -43,7 +57,7 @@ function RegisterModal({ isOpen, onRegister, onCloseModal, onLoginClick }) {
           name="email"
           placeholder="Email"
           value={values.email}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="email"
           required
         />
@@ -61,7 +75,7 @@ function RegisterModal({ isOpen, onRegister, onCloseModal, onLoginClick }) {
           name="password"
           placeholder="Password"
           value={values.password}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="new-password"
           minLength="8"
           required
@@ -80,7 +94,7 @@ function RegisterModal({ isOpen, onRegister, onCloseModal, onLoginClick }) {
           name="name"
           placeholder="Name"
           value={values.name}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="name"
           minLength="2"
           maxLength="30"
@@ -100,12 +114,18 @@ function RegisterModal({ isOpen, onRegister, onCloseModal, onLoginClick }) {
           name="avatar"
           placeholder="Avatar URL"
           value={values.avatar}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="url"
           required
         />
         <span className="modal__error">{errors.avatar}</span>
       </label>
+
+      {serverError && (
+        <p className="modal__server-error" role="alert">
+          {serverError}
+        </p>
+      )}
     </ModalWithForm>
   );
 }

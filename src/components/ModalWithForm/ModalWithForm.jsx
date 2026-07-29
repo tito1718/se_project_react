@@ -38,25 +38,27 @@ function ModalWithForm({
         >
           {children}
 
-          <button
-            type="submit"
-            className={`modal__submit ${
-              !isValid ? "modal__submit_disabled" : ""
-            }`}
-            disabled={!isValid}
-          >
-            {buttonText}
-          </button>
-
-          {alternateButtonText && (
+          <div className="modal__actions">
             <button
-              type="button"
-              className="modal__alternate-button"
-              onClick={onAlternateButtonClick}
+              type="submit"
+              className={`modal__submit ${
+                !isValid ? "modal__submit_disabled" : ""
+              }`}
+              disabled={!isValid}
             >
-              {alternateButtonText}
+              {buttonText}
             </button>
-          )}
+
+            {alternateButtonText && (
+              <button
+                type="button"
+                className="modal__alternate-button"
+                onClick={onAlternateButtonClick}
+              >
+                {alternateButtonText}
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

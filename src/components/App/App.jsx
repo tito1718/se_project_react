@@ -46,6 +46,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [registrationError, setRegistrationError] = useState("");
 
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
@@ -63,10 +64,12 @@ function App() {
   };
 
   const handleRegisterClick = () => {
+    setRegistrationError("");
     setActiveModal("register");
   };
 
   const handleLoginClick = () => {
+    setRegistrationError("");
     setActiveModal("login");
   };
 
@@ -77,6 +80,7 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal("");
     setCardToDelete(null);
+    setRegistrationError("");
   };
 
   useEffect(() => {
@@ -97,7 +101,9 @@ function App() {
     };
   }, [activeModal]);
 
-  const handleRegistration = ({ name, avatar, email, password }) => {
+  const handleRegistration = ({ name, avatar, email, password }, resetForm) => {
+    setRegistrationError("");
+
     signup({ name, avatar, email, password })
       .then(() => signin({ email, password }))
       .then(({ token }) => {
@@ -107,10 +113,17 @@ function App() {
       .then((userData) => {
         setCurrentUser(userData);
         setIsLoggedIn(true);
+        resetForm();
         closeActiveModal();
       })
       .catch((err) => {
         console.error(err);
+
+        if (err === "Error: 409") {
+          setRegistrationError("An account with this email already exists.");
+        } else {
+          setRegistrationError("Something went wrong. Please try again.");
+        }
       });
   };
 
@@ -302,6 +315,8 @@ function App() {
             onRegister={handleRegistration}
             onCloseModal={closeActiveModal}
             onLoginClick={handleLoginClick}
+            serverError={registrationError}
+            onClearError={() => setRegistrationError("")}
           />
 
           <LoginModal
