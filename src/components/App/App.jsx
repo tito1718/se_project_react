@@ -59,6 +59,7 @@ function App() {
   const [isRegistering, setIsRegistering] = useState(false);
   const [isAddingItem, setIsAddingItem] = useState(false);
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [isDeletingItem, setIsDeletingItem] = useState(false);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit((currentUnit) =>
@@ -220,16 +221,23 @@ function App() {
       return;
     }
 
-    deleteItem(cardToDelete._id)
+    const cardId = cardToDelete._id;
+
+    setIsDeletingItem(true);
+
+    deleteItem(cardId)
       .then(() => {
         setClothingItems((items) =>
-          items.filter((item) => item._id !== cardToDelete._id),
+          items.filter((item) => item._id !== cardId),
         );
 
         closeActiveModal();
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        setIsDeletingItem(false);
       });
   };
 
@@ -428,6 +436,7 @@ function App() {
             isOpen={activeModal === "delete-confirmation"}
             onClose={closeActiveModal}
             onConfirm={handleCardDelete}
+            isLoading={isDeletingItem}
           />
         </div>
       </CurrentUserContext.Provider>

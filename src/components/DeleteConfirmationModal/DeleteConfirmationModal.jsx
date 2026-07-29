@@ -1,7 +1,7 @@
 import "./DeleteConfirmationModal.css";
 import closeBtn from "../../assets/close-btn.png";
 
-function DeleteConfirmationModal({ isOpen, onClose, onConfirm }) {
+function DeleteConfirmationModal({ isOpen, onClose, onConfirm, isLoading }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`} onClick={onClose}>
       <div className="delete-modal" onClick={(evt) => evt.stopPropagation()}>
@@ -28,8 +28,9 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm }) {
           type="button"
           className="delete-modal__confirm-btn"
           onClick={onConfirm}
+          disabled={isLoading}
         >
-          Yes, delete item
+          {isLoading ? "Deleting..." : "Yes, delete item"}
         </button>
 
         <button
