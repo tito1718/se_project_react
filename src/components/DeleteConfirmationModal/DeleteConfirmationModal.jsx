@@ -1,7 +1,13 @@
 import "./DeleteConfirmationModal.css";
 import closeBtn from "../../assets/close-btn.png";
 
-function DeleteConfirmationModal({ isOpen, onClose, onConfirm, isLoading }) {
+function DeleteConfirmationModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  isLoading,
+  serverError,
+}) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`} onClick={onClose}>
       <div className="delete-modal" onClick={(evt) => evt.stopPropagation()}>
@@ -23,6 +29,12 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm, isLoading }) {
           <br />
           This action is irreversible.
         </p>
+
+        {serverError && (
+          <p className="delete-modal__server-error" role="alert">
+            {serverError}
+          </p>
+        )}
 
         <button
           type="button"

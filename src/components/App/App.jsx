@@ -56,6 +56,7 @@ function App() {
   const [loginError, setLoginError] = useState("");
   const [profileError, setProfileError] = useState("");
   const [addItemError, setAddItemError] = useState("");
+  const [deleteItemError, setDeleteItemError] = useState("");
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
@@ -103,6 +104,7 @@ function App() {
     setLoginError("");
     setProfileError("");
     setAddItemError("");
+    setDeleteItemError("");
   };
 
   const handleRegistration = ({ name, avatar, email, password }, resetForm) => {
@@ -220,6 +222,7 @@ function App() {
   };
 
   const openConfirmationModal = (card) => {
+    setDeleteItemError("");
     setCardToDelete(card);
     setActiveModal("delete-confirmation");
   };
@@ -231,6 +234,7 @@ function App() {
 
     const cardId = cardToDelete._id;
 
+    setDeleteItemError("");
     setIsDeletingItem(true);
 
     deleteItem(cardId)
@@ -243,6 +247,7 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
+        setDeleteItemError("Unable to delete the garment. Please try again.");
       })
       .finally(() => {
         setIsDeletingItem(false);
@@ -451,6 +456,7 @@ function App() {
             onClose={closeActiveModal}
             onConfirm={handleCardDelete}
             isLoading={isDeletingItem}
+            serverError={deleteItemError}
           />
         </div>
       </CurrentUserContext.Provider>
