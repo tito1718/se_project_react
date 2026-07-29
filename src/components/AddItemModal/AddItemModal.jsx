@@ -1,13 +1,27 @@
 import { useForm } from "../../hooks/useForm";
-
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
+function AddItemModal({
+  isOpen,
+  onAddItem,
+  onCloseModal,
+  isLoading,
+  serverError,
+  onClearError,
+}) {
   const { values, errors, isValid, handleChange, resetForm } = useForm({
     name: "",
     imageUrl: "",
     weather: "",
   });
+
+  const handleInputChange = (evt) => {
+    handleChange(evt);
+
+    if (serverError) {
+      onClearError();
+    }
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -22,7 +36,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
   return (
     <ModalWithForm
       title="New garment"
-      buttonText="Add garment"
+      buttonText={isLoading ? "Adding..." : "Add garment"}
       name="add-garment"
       isOpen={isOpen}
       onClose={onCloseModal}
@@ -41,7 +55,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
           name="name"
           placeholder="Name"
           value={values.name}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="off"
           minLength="2"
           maxLength="30"
@@ -61,7 +75,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
           name="imageUrl"
           placeholder="Image URL"
           value={values.imageUrl}
-          onChange={handleChange}
+          onChange={handleInputChange}
           autoComplete="url"
           required
         />
@@ -79,7 +93,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
             value="hot"
             className="modal__radio-input"
             checked={values.weather === "hot"}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
           />
           Hot
@@ -93,7 +107,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
             value="warm"
             className="modal__radio-input"
             checked={values.weather === "warm"}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           Warm
         </label>
@@ -106,7 +120,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
             value="cold"
             className="modal__radio-input"
             checked={values.weather === "cold"}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           Cold
         </label>
@@ -122,11 +136,17 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal, isLoading }) {
             value="freezing"
             className="modal__radio-input"
             checked={values.weather === "freezing"}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           Freezing
         </label>
       </fieldset>
+
+      {serverError && (
+        <p className="modal__server-error" role="alert">
+          {serverError}
+        </p>
+      )}
     </ModalWithForm>
   );
 }

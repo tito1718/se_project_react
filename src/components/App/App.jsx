@@ -55,6 +55,7 @@ function App() {
   const [registrationError, setRegistrationError] = useState("");
   const [loginError, setLoginError] = useState("");
   const [profileError, setProfileError] = useState("");
+  const [addItemError, setAddItemError] = useState("");
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
@@ -74,6 +75,7 @@ function App() {
   };
 
   const handleAddClick = () => {
+    setAddItemError("");
     setActiveModal("add-garment");
   };
 
@@ -100,6 +102,7 @@ function App() {
     setRegistrationError("");
     setLoginError("");
     setProfileError("");
+    setAddItemError("");
   };
 
   const handleRegistration = ({ name, avatar, email, password }, resetForm) => {
@@ -247,6 +250,7 @@ function App() {
   };
 
   const handleAddItemSubmit = (item, resetForm) => {
+    setAddItemError("");
     setIsAddingItem(true);
 
     addItem({
@@ -261,6 +265,7 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
+        setAddItemError("Unable to add the garment. Please try again.");
       })
       .finally(() => {
         setIsAddingItem(false);
@@ -401,6 +406,8 @@ function App() {
             onAddItem={handleAddItemSubmit}
             onCloseModal={closeActiveModal}
             isLoading={isAddingItem}
+            serverError={addItemError}
+            onClearError={() => setAddItemError("")}
           />
 
           <RegisterModal
