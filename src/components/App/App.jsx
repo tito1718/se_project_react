@@ -54,6 +54,7 @@ function App() {
 
   const [registrationError, setRegistrationError] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [profileError, setProfileError] = useState("");
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
@@ -89,6 +90,7 @@ function App() {
   };
 
   const handleEditProfileClick = () => {
+    setProfileError("");
     setActiveModal("edit-profile");
   };
 
@@ -97,6 +99,7 @@ function App() {
     setCardToDelete(null);
     setRegistrationError("");
     setLoginError("");
+    setProfileError("");
   };
 
   const handleRegistration = ({ name, avatar, email, password }, resetForm) => {
@@ -177,20 +180,22 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleUpdateUser = ({ name, avatar }) => {
+  const handleUpdateUser = ({ name, avatar }, resetForm) => {
+    setProfileError("");
     setIsUpdatingProfile(true);
 
-    return updateUser({
+    updateUser({
       name,
       avatar,
     })
       .then((updatedUser) => {
         setCurrentUser(updatedUser);
+        resetForm();
         closeActiveModal();
       })
       .catch((err) => {
         console.error(err);
-        throw err;
+        setProfileError("Unable to update your profile. Please try again.");
       })
       .finally(() => {
         setIsUpdatingProfile(false);
@@ -423,6 +428,8 @@ function App() {
             onClose={closeActiveModal}
             onUpdateUser={handleUpdateUser}
             isLoading={isUpdatingProfile}
+            serverError={profileError}
+            onClearError={() => setProfileError("")}
           />
 
           <ItemModal
