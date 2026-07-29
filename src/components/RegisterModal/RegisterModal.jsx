@@ -8,6 +8,7 @@ function RegisterModal({
   onLoginClick,
   serverError,
   onClearError,
+  isLoading,
 }) {
   const { values, errors, isValid, handleChange, resetForm } = useForm({
     email: "",
@@ -37,7 +38,7 @@ function RegisterModal({
   return (
     <ModalWithForm
       title="Sign up"
-      buttonText="Sign up"
+      buttonText={isLoading ? "Signing up..." : "Sign up"}
       name="register"
       isOpen={isOpen}
       onClose={onCloseModal}

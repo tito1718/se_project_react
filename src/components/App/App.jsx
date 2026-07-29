@@ -49,6 +49,7 @@ function App() {
   const [registrationError, setRegistrationError] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
@@ -108,6 +109,7 @@ function App() {
 
   const handleRegistration = ({ name, avatar, email, password }, resetForm) => {
     setRegistrationError("");
+    setIsRegistering(true);
 
     signup({ name, avatar, email, password })
       .then(() => signin({ email, password }))
@@ -129,6 +131,9 @@ function App() {
         } else {
           setRegistrationError("Something went wrong. Please try again.");
         }
+      })
+      .finally(() => {
+        setIsRegistering(false);
       });
   };
 
@@ -335,6 +340,7 @@ function App() {
             onLoginClick={handleLoginClick}
             serverError={registrationError}
             onClearError={() => setRegistrationError("")}
+            isLoading={isRegistering}
           />
 
           <LoginModal

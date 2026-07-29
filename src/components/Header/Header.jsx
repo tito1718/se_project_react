@@ -43,75 +43,87 @@ function Header({
       </div>
 
       <div
-        className={`header__menu ${
-          isMobileMenuOpened ? "header__menu_opened" : ""
+        className={`header__menu-overlay ${
+          isMobileMenuOpened ? "header__menu-overlay_opened" : ""
         }`}
+        onClick={() => setIsMobileMenuOpened(false)}
       >
-        <button
-          type="button"
-          className="header__close-btn"
-          onClick={() => setIsMobileMenuOpened(false)}
-          aria-label="Close menu"
+        <div
+          className="header__menu header__menu_opened"
+          onClick={(evt) => evt.stopPropagation()}
         >
-          ✕
-        </button>
+          <button
+            type="button"
+            className="header__close-btn"
+            onClick={() => setIsMobileMenuOpened(false)}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
 
-        <ToggleSwitch />
+          <ToggleSwitch />
 
-        {isLoggedIn ? (
-          <>
-            <Link
-              to="/profile"
-              className="header__profile-link"
-              onClick={() => setIsMobileMenuOpened(false)}
-            >
-              <div className="header__user-container">
-                <p className="header__username">{currentUser.name}</p>
+          {isLoggedIn ? (
+            <>
+              <Link
+                to="/profile"
+                className="header__profile-link"
+                onClick={() => setIsMobileMenuOpened(false)}
+              >
+                <div className="header__user-container">
+                  <p className="header__username">{currentUser.name}</p>
 
-                {currentUser.avatar ? (
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser.name}
-                    className="header__avatar"
-                  />
-                ) : (
-                  <div className="header__avatar-placeholder">
-                    {currentUser.name?.charAt(0).toUpperCase()}
-                  </div>
-                )}
-              </div>
-            </Link>
+                  {currentUser.avatar ? (
+                    <img
+                      src={currentUser.avatar}
+                      alt={currentUser.name}
+                      className="header__avatar"
+                    />
+                  ) : (
+                    <div className="header__avatar-placeholder">
+                      {currentUser.name?.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
+              </Link>
 
-            <button
-              onClick={() => {
-                handleAddClick();
-                setIsMobileMenuOpened(false);
-              }}
-              type="button"
-              className="header__add-clothes-btn"
-            >
-              + Add clothes
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              type="button"
-              className="header__auth-btn"
-              onClick={handleRegisterClick}
-            >
-              Sign Up
-            </button>
+              <button
+                onClick={() => {
+                  handleAddClick();
+                  setIsMobileMenuOpened(false);
+                }}
+                type="button"
+                className="header__add-clothes-btn"
+              >
+                + Add clothes
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={() => {
+                  handleRegisterClick();
+                  setIsMobileMenuOpened(false);
+                }}
+              >
+                Sign Up
+              </button>
 
-            <button
-              type="button"
-              className="header__auth-btn"
-              onClick={handleLoginClick}
-            >
-              Log In
-            </button>
-          </>
-        )}
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={() => {
+                  handleLoginClick();
+                  setIsMobileMenuOpened(false);
+                }}
+              >
+                Log In
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
