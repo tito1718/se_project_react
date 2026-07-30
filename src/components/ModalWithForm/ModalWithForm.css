@@ -101,7 +101,7 @@
 }
 
 .modal__error {
-  min-height: 20px;
+  display: block;
   margin-top: 4px;
   color: #ff4d00;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
@@ -110,12 +110,16 @@
   line-height: 20px;
 }
 
+.modal__error:empty {
+  display: none;
+}
+
 .modal__radio-buttons {
   display: flex;
   flex-direction: column;
   border: none;
   padding: 0;
-  margin: 0 0 32px;
+  margin: 0 0 22px;
 }
 
 .modal__legend {
@@ -136,6 +140,10 @@
   transition:
     color 0.2s ease,
     opacity 0.2s ease;
+}
+
+.modal__label_type_radio:has(.modal__radio-input:checked) {
+  color: #000000;
 }
 
 .modal__label_type_radio[for="hot"]:hover {
@@ -163,7 +171,7 @@
 }
 
 .modal__submit {
-  width: 124px;
+  width: fit-content;
   height: 36px;
   padding: 8px 16px;
   border: none;

@@ -1,66 +1,134 @@
-.modal__content_type_image {
+.item-modal {
   position: relative;
-  max-width: 498px;
+  display: grid;
+  grid-template-columns: 324px 1fr;
+  column-gap: 29px;
   width: 100%;
-  border-radius: 16px;
+  max-width: 670px;
+  min-height: 366px;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
   overflow: hidden;
-  background-color: #fff;
-  padding: 0;
+  background-color: #ffffff;
 }
 
-.modal__image {
-  width: 100%;
-  height: 498px;
-  display: block;
-  object-fit: cover;
-}
-
-.modal__close {
+.item-modal__close {
   position: absolute;
   top: 20px;
-  right: 28px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
   border: none;
-  background: transparent;
   padding: 0;
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 700;
+  background-color: transparent;
   cursor: pointer;
-  z-index: 2;
+  z-index: 3;
   transition:
     opacity 0.2s ease,
     transform 0.2s ease;
 }
 
-.modal__close:hover {
+.item-modal__close:hover {
   opacity: 0.6;
   transform: rotate(90deg) scale(1.15);
 }
 
-.modal__footer {
-  padding: 20px 32px 32px;
-  background-color: #fff;
+.item-modal__close-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
-.modal__caption-container {
+.item-modal__close-icon_type_mobile {
+  display: none;
+}
+
+.item-modal__image-container {
+  position: relative;
+  width: 324px;
+  height: 324px;
+}
+
+.item-modal__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.item-modal__image-name {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 2px 12px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.item-modal__information {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: 10px;
+  padding-right: 24px;
+  box-sizing: border-box;
 }
 
-.modal__caption {
+.item-modal__caption {
+  display: none;
   margin: 0;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
-  line-height: 24px;
   font-weight: 700;
+  line-height: 24px;
 }
 
-.modal__delete-btn {
+.item-modal__weather {
+  margin: 0;
+  color: #000000;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.item-modal__weather-value {
+  display: inline;
+}
+
+.item-modal__weather_type_hot {
+  color: #ff5a36;
+}
+
+.item-modal__weather_type_warm {
+  color: #ffb703;
+}
+
+.item-modal__weather_type_cold {
+  color: #38bdf8;
+}
+
+.item-modal__weather_type_freezing {
+  color: #7c3aed;
+}
+
+.item-modal__delete-btn {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: 12px;
   border: none;
-  background: transparent;
   padding: 0;
+  background-color: transparent;
   color: #ff4d00;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
@@ -72,36 +140,66 @@
     transform 0.25s ease;
 }
 
-.modal__delete-btn:hover {
+.item-modal__delete-btn:hover {
   opacity: 0.6;
   transform: translateY(-1px);
 }
 
-.modal__weather {
-  color: #000;
-  margin: 12px 0 0;
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 700;
-}
+@media screen and (max-width: 768px) {
+  .item-modal {
+    display: block;
+    width: 100%;
+    max-width: 343px;
+    min-height: 0;
+    padding: 0;
+    border-radius: 16px;
+  }
 
-.modal__weather-value {
-  display: inline;
-}
+  .item-modal__close {
+    top: 20px;
+    right: 20px;
+  }
 
-.modal__weather_type_hot {
-  color: #ff5a36;
-}
+  .item-modal__close-icon_type_desktop {
+    display: none;
+  }
 
-.modal__weather_type_warm {
-  color: #ffb703;
-}
+  .item-modal__close-icon_type_mobile {
+    display: block;
+  }
 
-.modal__weather_type_cold {
-  color: #38bdf8;
-}
+  .item-modal__image-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
 
-.modal__weather_type_freezing {
-  color: #7c3aed;
+  .item-modal__image {
+    border-radius: 0;
+  }
+
+  .item-modal__image-name {
+    display: none;
+  }
+
+  .item-modal__information {
+    display: block;
+    padding: 20px 32px 32px;
+  }
+
+  .item-modal__caption {
+    display: block;
+    padding-right: 120px;
+  }
+
+  .item-modal__weather {
+    margin-top: 12px;
+  }
+
+  .item-modal__delete-btn {
+    position: absolute;
+    top: 20px;
+    right: 32px;
+    margin: 0;
+  }
 }

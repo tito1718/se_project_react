@@ -1,7 +1,7 @@
 .profile {
   display: grid;
-  grid-template-columns: 229px 1fr;
-  column-gap: 40px;
+  grid-template-columns: 229px minmax(0, 1fr);
+  column-gap: 116px;
   margin-top: 47px;
   align-items: start;
 }

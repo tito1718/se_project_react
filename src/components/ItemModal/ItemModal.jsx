@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ItemModal.css";
-import closeBtn from "../../assets/white-close-btn.png";
+import closeBtn from "../../assets/close-btn.png";
+import whiteCloseBtn from "../../assets/white-close-btn.png";
 
 function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
   const currentUser = useContext(CurrentUserContext);
@@ -14,45 +15,58 @@ function ItemModal({ activeModal, onClose, card, onDeleteClick }) {
       className={`modal ${activeModal === "preview" ? "modal_opened" : ""}`}
       onClick={onClose}
     >
-      <div
-        className="modal__content modal__content_type_image"
-        onClick={(evt) => evt.stopPropagation()}
-      >
+      <div className="item-modal" onClick={(evt) => evt.stopPropagation()}>
         <button
           type="button"
-          className="modal__close"
+          className="item-modal__close"
           onClick={onClose}
           aria-label="Close modal"
         >
-          <img src={closeBtn} alt="Close icon" className="modal__close-icon" />
+          <img
+            src={closeBtn}
+            alt=""
+            className="item-modal__close-icon item-modal__close-icon_type_desktop"
+          />
+
+          <img
+            src={whiteCloseBtn}
+            alt=""
+            className="item-modal__close-icon item-modal__close-icon_type_mobile"
+          />
         </button>
 
-        <img src={card.imageUrl} alt={card.name} className="modal__image" />
+        <div className="item-modal__image-container">
+          <img
+            src={card.imageUrl}
+            alt={card.name}
+            className="item-modal__image"
+          />
 
-        <div className="modal__footer">
-          <div className="modal__caption-container">
-            <h2 className="modal__caption">{card.name}</h2>
+          <h2 className="item-modal__image-name">{card.name}</h2>
+        </div>
 
-            {isOwn && (
-              <button
-                type="button"
-                className="modal__delete-btn"
-                onClick={() => onDeleteClick(card)}
-              >
-                Delete item
-              </button>
-            )}
-          </div>
+        <div className="item-modal__information">
+          <h2 className="item-modal__caption">{card.name}</h2>
 
-          <p className="modal__weather">
+          <p className="item-modal__weather">
             Weather:
             <span
-              className={`modal__weather-value modal__weather_type_${card.weather}`}
+              className={`item-modal__weather-value item-modal__weather_type_${card.weather}`}
             >
               {" "}
               {card.weather}
             </span>
           </p>
+
+          {isOwn && (
+            <button
+              type="button"
+              className="item-modal__delete-btn"
+              onClick={() => onDeleteClick(card)}
+            >
+              Delete item
+            </button>
+          )}
         </div>
       </div>
     </div>

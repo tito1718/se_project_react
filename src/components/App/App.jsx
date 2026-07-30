@@ -169,7 +169,7 @@ function App() {
         console.error(err);
 
         if (err === "Error: 401") {
-          setLoginError("Incorrect email or password.");
+          setLoginError("Email or password incorrect");
         } else {
           setLoginError("Something went wrong. Please try again.");
         }

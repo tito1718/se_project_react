@@ -35,15 +35,15 @@ function LoginModal({
 
   return (
     <ModalWithForm
-      title="Log in"
-      buttonText={isLoading ? "Logging in..." : "Log in"}
+      title="Log In"
+      buttonText={isLoading ? "Logging in..." : "Log In"}
       name="login"
       isOpen={isOpen}
       onClose={onCloseModal}
       onSubmit={handleSubmit}
       isValid={isValid}
       isLoading={isLoading}
-      alternateButtonText="or Sign up"
+      alternateButtonText="or Sign Up"
       onAlternateButtonClick={onRegisterClick}
     >
       <label htmlFor="login-email" className="modal__label">

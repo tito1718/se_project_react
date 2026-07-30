@@ -37,18 +37,19 @@ function RegisterModal({
 
   return (
     <ModalWithForm
-      title="Sign up"
-      buttonText={isLoading ? "Signing up..." : "Sign up"}
+      title="Sign Up"
+      buttonText={isLoading ? "Signing up..." : "Sign Up"}
       name="register"
       isOpen={isOpen}
       onClose={onCloseModal}
       onSubmit={handleSubmit}
       isValid={isValid}
-      alternateButtonText="or Log in"
+      isLoading={isLoading}
+      alternateButtonText="or Log In"
       onAlternateButtonClick={onLoginClick}
     >
       <label htmlFor="register-email" className="modal__label">
-        Email
+        Email*
         <input
           type="email"
           className={`modal__input ${
@@ -66,7 +67,7 @@ function RegisterModal({
       </label>
 
       <label htmlFor="register-password" className="modal__label">
-        Password
+        Password*
         <input
           type="password"
           className={`modal__input ${
@@ -85,7 +86,7 @@ function RegisterModal({
       </label>
 
       <label htmlFor="register-name" className="modal__label">
-        Name
+        Name *
         <input
           type="text"
           className={`modal__input ${
@@ -105,7 +106,7 @@ function RegisterModal({
       </label>
 
       <label htmlFor="register-avatar" className="modal__label">
-        Avatar URL
+        Avatar URL *
         <input
           type="url"
           className={`modal__input ${

@@ -2,6 +2,7 @@
   position: relative;
   max-width: 670px;
   width: 100%;
+  min-height: 278px;
   padding: 60px 95px;
   box-sizing: border-box;
   border-radius: 20px;
@@ -12,7 +13,7 @@
 .delete-modal__close {
   position: absolute;
   top: 20px;
-  right: 28px;
+  right: 20px;
   width: 20px;
   height: 20px;
   border: none;
