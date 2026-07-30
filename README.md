@@ -2,113 +2,145 @@
 
 ## About the Project
 
-WTWR (What To Wear) is a responsive React application that recommends clothing items based on the current weather conditions. The application uses the OpenWeather API to fetch real-time weather data and dynamically displays clothing suggestions depending on the temperature.
+WTWR (What To Wear) is a full-stack weather-based clothing recommendation application built with React, Express, MongoDB, and JWT authentication.
 
-The project was built as part of the TripleTen Software Engineering program and focuses on:
+The application retrieves real-time weather data from the OpenWeather API and recommends clothing based on the current temperature. Users can create an account, securely log in, manage their profile, add clothing items, like garments, and remove items they own.
 
-- React components
-- State management
-- Props
-- API integration
-- Responsive design
-- Conditional rendering
-- Interactive modals
-- Mobile-friendly layouts
+This project was built as part of the TripleTen Software Engineering program and demonstrates full-stack web development using modern JavaScript technologies.
 
 ---
 
 ## Features
 
+- User registration and login
+- JWT authentication
+- Persistent login using local storage
+- Protected profile page
 - Real-time weather data using the OpenWeather API
+- Weather-based clothing recommendations
+- Add new clothing items
+- Delete clothing items you own
+- Like and unlike clothing items
+- Edit profile name and avatar
+- Responsive mobile layout
+- Interactive mobile navigation
+- Modal windows with:
+  - Form validation
+  - Loading states
+  - ESC key closing
+  - Overlay click closing
+- Fahrenheit/Celsius temperature toggle
 - Dynamic weather card backgrounds
-- Clothing recommendations based on temperature
-- Responsive mobile design
-- Interactive mobile navigation menu
-- Add garment modal window
-- Garment preview modal
-- ESC key modal closing support
-- Overlay click modal closing support
-- Hover effects for weather type selections
 - Custom WTWR favicon
 
 ---
 
 ## Technologies Used
 
+### Frontend
+
 - React
+- React Router
 - Vite
 - JavaScript
-- CSS
 - HTML
+- CSS
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JSON Web Token (JWT)
+- bcrypt
+
+### APIs
+
 - OpenWeather API
 
 ---
 
 ## Project Functionality
 
-The application fetches live weather information based on coordinates stored in the project. Depending on the current temperature, the app categorizes the weather into:
+The application retrieves weather information based on stored coordinates and categorizes the temperature into the following weather types:
 
 - Hot
 - Warm
 - Cold
 - Freezing
 
-The app then filters and displays clothing items appropriate for the current weather conditions.
+Based on the current weather, the application displays clothing items that match the temperature.
 
 Users can:
 
-- Open and close modals
-- Preview garment cards
-- View responsive layouts on different screen sizes
-- Interact with the mobile navigation menu
+- Register for an account
+- Log in securely
+- Stay logged in across browser sessions
+- View weather-based clothing recommendations
+- Add clothing items
+- Like and unlike clothing items
+- Delete clothing items they own
+- Edit their profile information
+- Toggle between Fahrenheit and Celsius
+- Use the application on both desktop and mobile devices
 
 ---
 
-## Responsive Design
+## Backend Repository
 
-The project includes responsive design features for smaller screen sizes and mobile devices.
+This project uses a separate Express and MongoDB backend.
 
-Responsive improvements include:
+Backend Repository:
 
-- Mobile dropdown navigation menu
-- Responsive card layouts
-- Flexible weather card sizing
-- Mobile-friendly modal behavior
-- Adaptive header layout
+https://github.com/tito1718/se_project_express
 
 ---
 
 ## API
 
-This project uses the OpenWeather API:
+This project uses the OpenWeather API to retrieve current weather conditions.
 
-- https://openweathermap.org/api
-
----
-
-## Future Improvements
-
-Potential future improvements include:
-
-- User authentication
-- Saving custom clothing items
-- Backend database integration
-- Editable user profiles
-- Improved weather animations
-- Additional weather condition support
-
----
-
-## Author
-
-Cesar Chirino
+https://openweathermap.org/api
 
 ---
 
 ## Deployment
 
-GitHub repository: https://github.com/tito1718/se_project_react
+Frontend Repository:
+
+https://github.com/tito1718/se_project_react
+
+Backend Repository:
+
+https://github.com/tito1718/se_project_express
+
+---
 
 ## Project Pitch Video
 
-Check out [this video](https://www.loom.com/share/2d8f3c83c3ab4bd996c3bb1671e938a0), where I describe my project and some challenges I faced while building it.
+Watch a walkthrough of the project and learn about the development process and challenges I faced while building WTWR:
+
+https://www.loom.com/share/2d8f3c83c3ab4bd996c3bb1671e938a0
+
+---
+
+## Future Improvements
+
+Potential future enhancements include:
+
+- Search and filter clothing items
+- Multiple wardrobe collections
+- Weather forecasts for upcoming days
+- User profile customization
+- Image upload optimization
+- Animated weather effects
+- Dark mode support
+
+---
+
+## Author
+
+**Cesar "Tito" Chirino**
+
+Software Engineering Student at TripleTen
