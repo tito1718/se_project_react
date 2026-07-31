@@ -11,7 +11,7 @@ import {
 } from "../../utils/api";
 import { signup, signin, checkToken } from "../../utils/auth";
 import { setToken, getToken, removeToken } from "../../utils/token";
-import { apiKey } from "../../utils/constants";
+import { apiKey, coordinates } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
@@ -296,8 +296,20 @@ function App() {
   }, [activeModal]);
 
   useEffect(() => {
+    const fetchWeather = (selectedCoordinates) => {
+      getWeather(selectedCoordinates, apiKey)
+        .then((data) => {
+          const filteredData = filterWeatherData(data);
+          setWeatherData(filteredData);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+
     if (!navigator.geolocation) {
       console.error("Geolocation is not supported by this browser.");
+      fetchWeather(coordinates);
       return;
     }
 
@@ -308,17 +320,11 @@ function App() {
           longitude: position.coords.longitude,
         };
 
-        getWeather(userCoordinates, apiKey)
-          .then((data) => {
-            const filteredData = filterWeatherData(data);
-            setWeatherData(filteredData);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        fetchWeather(userCoordinates);
       },
       (err) => {
         console.error("Error getting geolocation:", err);
+        fetchWeather(coordinates);
       },
     );
   }, []);

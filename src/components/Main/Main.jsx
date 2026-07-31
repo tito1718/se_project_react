@@ -13,6 +13,10 @@ function Main({
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
+  const filteredItems = weatherData.type
+    ? clothingItems.filter((item) => item.weather === weatherData.type)
+    : clothingItems;
+
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
@@ -24,17 +28,15 @@ function Main({
         </p>
 
         <ul className="cards__list">
-          {clothingItems
-            .filter((item) => item.weather === weatherData.type)
-            .map((item) => (
-              <ItemCard
-                key={item._id}
-                item={item}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                isLoggedIn={isLoggedIn}
-              />
-            ))}
+          {filteredItems.map((item) => (
+            <ItemCard
+              key={item._id}
+              item={item}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              isLoggedIn={isLoggedIn}
+            />
+          ))}
         </ul>
       </section>
     </main>

@@ -1,3 +1,5 @@
+import { checkResponse } from "./api";
+
 const baseUrl = "http://localhost:3001";
 
 export const signup = ({ name, avatar, email, password }) => {
@@ -12,13 +14,7 @@ export const signup = ({ name, avatar, email, password }) => {
       email,
       password,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-
-    return Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
 
 export const signin = ({ email, password }) => {
@@ -31,13 +27,7 @@ export const signin = ({ email, password }) => {
       email,
       password,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-
-    return Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
 
 export const checkToken = (token) => {
@@ -46,11 +36,5 @@ export const checkToken = (token) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-
-    return Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
